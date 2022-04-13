@@ -33,7 +33,7 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
-
+  const [value, setValue] = useState<number>(0);
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
@@ -49,6 +49,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
+      setValue(2);
       const msg = await login({ ...values, type });
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = intl.formatMessage({
@@ -82,6 +83,7 @@ const Login: React.FC = () => {
       <div className={styles.lang} data-lang>
         {SelectLang && <SelectLang />}
       </div>
+      <div>{value}</div>
       <div className={styles.content}>
         <LoginForm
           logo={<img alt="logo" src="/logo.svg" />}
